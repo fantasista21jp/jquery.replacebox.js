@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+#jquery-replacebox-0 {
+  width: 300px;
+  margin: 0;
+  padding: 10px 20px 20px 20px;
+  background: #CCC;
+}
+
+#jquery-replacebox-0 .jquery-replacebox {
+  width: 298px;
+  margin: 10px 0 0 0;
+  padding: 30px 0;
+  border: 1px solid #000;
+  text-align: center;
+  background: #FFF;
+}
+
+#jquery-replacebox-1 {
+  width: 1000px;
+  margin: 0;
+  padding: 10px 10px 20px 20px;
+  background: #CCC;
+}
+
+#jquery-replacebox-1 .jquery-replacebox {
+  width: 298px;
+  margin: 10px 10px 0 0;
+  padding: 30px 0;
+  border: 1px solid #000;
+  text-align: center;
+  background: #FFF;
+  float: left;
+}
+
+#jquery-replacebox-1 .jquery-replacebox .up {
+  text-align: left;
+}
+
+#jquery-replacebox-1 .jquery-replacebox .down {
+  text-align: right;
+}
+
+
+/*
+============================================================
+	clearfix
+============================================================
+*/
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {
+    display: inline-block;
+}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
