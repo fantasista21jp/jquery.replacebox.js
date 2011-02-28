@@ -16,6 +16,9 @@
       handleOff: true,
       speed: 500,
       easing: 'swing',
+      checkFunc: function(){
+        return true;
+      },
       beforeFunc: null,
       afterFunc: null
     };
@@ -83,6 +86,7 @@
     }
 
     function _move(action, _i) {
+
       if (_getStatus() !== true) return;
       var $from = $replaceboxes[_i],
           $to,
@@ -101,7 +105,11 @@
           return;
       }
 
-      if ($.isFunction(configs.beforeFunc)) configs.beforeFunc($from, $to);
+      if (configs.checkFunc($from, $to, $replacebox, action) !== true) {
+        return;
+      }
+
+      if ($.isFunction(configs.beforeFunc)) configs.beforeFunc($from, $to, $replacebox, action);
 
       disable();
 
@@ -140,7 +148,7 @@
           moved_from_flg = true;
           if (moved_to_flg === true) {
             moved_from_flg = false;
-            _show($clone_from, $clone_to, $move_from, $move_to)
+            _show($clone_from, $clone_to, $move_from, $move_to, action)
           }
         }
       );
@@ -155,19 +163,19 @@
           moved_to_flg = true;
           if (moved_from_flg === true) {
             moved_to_flg = false;
-            _show($clone_from, $clone_to, $move_from, $move_to)
+            _show($clone_from, $clone_to, $move_from, $move_to, action)
           }
         }
       );
     }
 
-    function _show($clone_from, $clone_to, $move_from, $move_to) {
+    function _show($clone_from, $clone_to, $move_from, $move_to, action) {
       $clone_from.remove();
       $clone_to.remove();
       $move_from.css('visibility', '');
       $move_to.css('visibility', '');
-      if ($.isFunction(configs.afterFunc)) configs.afterFunc($move_from, $move_to);
       refresh();
+      if ($.isFunction(configs.afterFunc)) configs.afterFunc($move_from, $move_to, $replacebox, action);
     }
 
     function _getStatus() {
