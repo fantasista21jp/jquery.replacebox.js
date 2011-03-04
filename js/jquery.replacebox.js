@@ -10,6 +10,7 @@
 (function($) {
   $.fn.replacebox = function(configs) {
     var defaults = {
+      appendTo: null,
       zIndex: 999,
       handleUp: '.up',
       handleDown: '.down',
@@ -24,38 +25,44 @@
     };
 
     var $replacebox = this;
-    if (typeof($replacebox) !== 'object' || $replacebox.length < 1) return;
+    if (typeof($replacebox) !== 'object' || $replacebox.length !== 1) return this;
 
-    var $parentbox = $($replacebox.parent().get(0)),
+    var $replacechild,
         $replaceboxes = [];
 
     if (configs) {
       if (typeof(configs) === 'string') {
-        if (configs.match(/^_/)) return;
+        if (configs.match(/^_/)) return this;
         try{
           eval(configs)();
         } catch(e) {
           alert(e);
         }
-        return;
+        return this;
       }
       configs = $.extend(defaults, configs);
     } else {
       configs = defaults;
     }
 
-    $.data($parentbox.get(0), 'replacebox-position', false);
-    if (!$parentbox.css('position') || $parentbox.css('position') == 'static') {
-      $.data($parentbox.get(0), 'replacebox-position', (!$parentbox.css('position')?false:$parentbox.css('position')));
-      $parentbox.css('position', 'relative');
+    $.data($replacebox.get(0), 'replacebox-position', false);
+    if (!$replacebox.css('position') || $replacebox.css('position') == 'static') {
+      $.data($replacebox.get(0), 'replacebox-position', (!$replacebox.css('position')?false:$replacebox.css('position')));
+      $replacebox.css('position', 'relative');
     }
-    $.data($parentbox.get(0), 'replacebox-configs', configs);
+    $.data($replacebox.get(0), 'replacebox-configs', configs);
     disable();
 
     _set();
 
     function _set() {
-      $replacebox.each(function(_i){
+      if (configs.appendTo && typeof(configs.appendTo) === 'object' && configs.appendTo.length > 0) {
+        $replacechild = configs.appendTo;
+      } else {
+        $replacechild = $replacebox.children(configs.appendTo);
+      }
+
+      $replacechild.each(function(_i){
         var $box = $(this),
             $up = $(configs.handleUp, $box),
             $down = $(configs.handleDown, $box);
@@ -69,7 +76,7 @@
           _move('up', _i);
           return false;
         });
-        if (_i >= $replacebox.length - 1 && configs.handleOff) {
+        if (_i >= $replacechild.length - 1 && configs.handleOff) {
           $down.css('visibility', 'hidden');
         } else {
           $down.css('visibility', '');
@@ -86,37 +93,37 @@
     }
 
     function _move(action, _i) {
-
       if (_getStatus() !== true) return;
       var $from = $replaceboxes[_i],
           $to,
-          index = $replacebox.index($from);
+          index = $replacechild.index($from);
       if ($from.length === 0) return;
       switch (action) {
         case 'up':
           if (index === 0) return;
-          $to = $($replacebox.get(index - 1));
+          $to = $($replacechild.get(index - 1));
           break;
         case 'down':
           if (index >= $replaceboxes.length - 1) return;
-          $to = $($replacebox.get(index + 1));
+          $to = $($replacechild.get(index + 1));
           break;
         default:
           return;
       }
 
-      if (configs.checkFunc($from, $to, $replacebox, action) !== true) {
+      disable();
+
+      if (configs.checkFunc($from, $to, $replacechild, action) !== true) {
+        enable();
         return;
       }
 
-      if ($.isFunction(configs.beforeFunc)) configs.beforeFunc($from, $to, $replacebox, action);
-
-      disable();
+      if ($.isFunction(configs.beforeFunc)) configs.beforeFunc($from, $to, $replacechild, action);
 
       var position_before_from = $from.position(),
           position_before_to = $to.position();
-      var $clone_from = $from.clone(true).appendTo($parentbox),
-          $clone_to = $to.clone(true).appendTo($parentbox);
+      var $clone_from = $from.clone(true).appendTo($replacebox),
+          $clone_to = $to.clone(true).appendTo($replacebox);
       var $move_from = $clone_from.clone(true).replaceAll($to).css('visibility', 'hidden'),
           $move_to = $clone_to.clone(true).replaceAll($from).css('visibility', 'hidden');
       var position_after_from = $move_from.position(),
@@ -175,23 +182,23 @@
       $move_from.css('visibility', '');
       $move_to.css('visibility', '');
       refresh();
-      if ($.isFunction(configs.afterFunc)) configs.afterFunc($move_from, $move_to, $replacebox, action);
+      if ($.isFunction(configs.afterFunc)) configs.afterFunc($move_from, $move_to, $replacechild, action);
     }
 
     function _getStatus() {
-      return $.data($parentbox.get(0), 'replacebox-enabled');
+      return $.data($replacebox.get(0), 'replacebox-enabled');
     }
 
     function _getConfigs() {
-      return $.data($parentbox.get(0), 'replacebox-configs');
+      return $.data($replacebox.get(0), 'replacebox-configs');
     }
 
     function enable() {
-      $.data($parentbox.get(0), 'replacebox-enabled', true);
+      $.data($replacebox.get(0), 'replacebox-enabled', true);
     }
 
     function disable() {
-      $.data($parentbox.get(0), 'replacebox-enabled', false);
+      $.data($replacebox.get(0), 'replacebox-enabled', false);
     }
 
     function refresh() {
@@ -203,10 +210,10 @@
 
     function destroy() {
       var configs = _getConfigs(),
-          org_position = $.data($parentbox.get(0), 'replacebox-position');
-      $parentbox.removeData('replacebox-configs').removeData('replacebox-enabled').removeData('replacebox-position');
+          org_position = $.data($replacebox.get(0), 'replacebox-position');
+      $replacebox.removeData('replacebox-configs').removeData('replacebox-enabled').removeData('replacebox-position');
       if (org_position !== false) {
-        $parentbox.css('position', org_position);
+        $replacebox.css('position', org_position);
       }
       $replacebox.each(function(_i){
         var $box = $(this),
