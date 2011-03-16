@@ -203,6 +203,7 @@
 
     function refresh() {
       if (typeof(configs) === 'string') configs = _getConfigs();
+      if (configs === null) return;
       $replacebox = $($replacebox.selector);
       $replaceboxes = [];
       _set();
@@ -211,6 +212,7 @@
     function destroy() {
       var configs = _getConfigs(),
           org_position = $.data($replacebox.get(0), 'replacebox-position');
+      if (configs === null) return;
       $replacebox.removeData('replacebox-configs').removeData('replacebox-enabled').removeData('replacebox-position');
       if (org_position !== false) {
         $replacebox.css('position', org_position);
