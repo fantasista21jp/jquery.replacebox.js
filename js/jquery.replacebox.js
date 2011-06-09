@@ -207,7 +207,7 @@
               if ($.isFunction(configs.sortableBeforeFunc)) configs.sortableBeforeFunc(event, ui);
           },
           update: function(event, ui) {
-              if (configs.sortableCheckFunc() === false) {
+              if (configs.sortableCheckFunc(event, ui) === false) {
                   $replacebox.sortable('cancel');
                   return;
               }
