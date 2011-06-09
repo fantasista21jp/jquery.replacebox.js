@@ -1,10 +1,16 @@
 /*
  * jQuery replacebox (jQuery Plugin)
  *
- * Copyright (c) 2010 Tom Shimada
+ * Copyright (c) 2011 Tom Shimada
  *
  * Depends Script:
  *	js/jquery.js (1.3.2~)
+ *	[use sortable (1.7.*)] ui.core.js
+ *	[use sortable (1.7.*)] ui.sortable.js
+ *	[use sortable (1.8.*)] ui.core.js
+ *	[use sortable (1.8.*)] ui.widget.js
+ *	[use sortable (1.8.*)] ui.mouse.js
+ *	[use sortable (1.8.*)] ui.sortable.js
  */
 
 (function($) {
@@ -21,7 +27,14 @@
         return true;
       },
       beforeFunc: null,
-      afterFunc: null
+      afterFunc: null,
+      sortable: false,
+      sortableOption: {},
+      sortableCheckFunc: function(){
+        return true;
+      },
+      sortableBeforeFunc: null,
+      sortableAfterFunc: null
     };
 
     var $replacebox = this;
@@ -36,7 +49,7 @@
         try{
           eval(configs)();
         } catch(e) {
-          alert(e);
+          if('console' in window) console.log(e);
         }
         return this;
       }
@@ -88,6 +101,8 @@
 
         $replaceboxes.push($box);
       });
+
+      if (configs.sortable === true) _sortable();
 
       enable();
     }
@@ -185,6 +200,27 @@
       if ($.isFunction(configs.afterFunc)) configs.afterFunc($move_from, $move_to, $replacechild, action);
     }
 
+    function _sortable() {
+      configs.sortableOption = $.extend(configs.sortableOption, {
+          items: $replacechild,
+          start: function(event, ui) {
+              if ($.isFunction(configs.sortableBeforeFunc)) configs.sortableBeforeFunc(event, ui);
+          },
+          update: function(event, ui) {
+              if (configs.sortableCheckFunc() === false) {
+                  $replacebox.sortable('cancel');
+                  return;
+              }
+          },
+          stop: function(event, ui) {
+              refresh();
+              if ($.isFunction(configs.sortableAfterFunc)) configs.sortableAfterFunc(event, ui);
+          },
+          disabled: false
+      });
+      $replacebox.sortable(configs.sortableOption).disableSelection();
+    }
+
     function _getStatus() {
       return $.data($replacebox.get(0), 'replacebox-enabled');
     }
@@ -195,10 +231,12 @@
 
     function enable() {
       $.data($replacebox.get(0), 'replacebox-enabled', true);
+      if (configs.sortable === true) $replacebox.sortable('option', 'disabled', false);
     }
 
     function disable() {
       $.data($replacebox.get(0), 'replacebox-enabled', false);
+      if (configs.sortable === false) $replacebox.sortable('option', 'disabled', true);
     }
 
     function refresh() {
