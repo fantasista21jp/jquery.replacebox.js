@@ -236,7 +236,7 @@
 
     function disable() {
       $.data($replacebox.get(0), 'replacebox-enabled', false);
-      if (configs.sortable === false) $replacebox.sortable('option', 'disabled', true);
+      if (configs.sortable === true) $replacebox.sortable('option', 'disabled', true);
     }
 
     function refresh() {
