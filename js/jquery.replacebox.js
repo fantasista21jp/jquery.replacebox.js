@@ -218,7 +218,12 @@
           },
           disabled: false
       });
-      $replacebox.sortable(configs.sortableOption).disableSelection();
+      $replacebox.sortable(configs.sortableOption);
+      if ($replacebox.sortable('option', 'handle')) {
+          $($replacebox.sortable('option', 'handle'), $replacebox).disableSelection();
+      } else {
+          $replacebox.disableSelection();
+      }
     }
 
     function _getStatus() {
@@ -262,6 +267,7 @@
         $up.unbind('click');
         $down.unbind('click');
       });
+      if (configs.sortable === true) $replacebox.sortable('destroy');
     }
 
     return this;
