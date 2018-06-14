@@ -236,12 +236,19 @@
 
     function enable() {
       $.data($replacebox.get(0), 'replacebox-enabled', true);
-      if (configs.sortable === true) $replacebox.sortable('option', 'disabled', false);
+      if (configs.sortable === true) {
+//        $replacebox.sortable('option', 'disabled', false);
+        $replacebox.sortable({disabled: false});
+
+      }
     }
 
     function disable() {
       $.data($replacebox.get(0), 'replacebox-enabled', false);
-      if (configs.sortable === true) $replacebox.sortable('option', 'disabled', true);
+      if (configs.sortable === true) {
+//        $replacebox.sortable('option', 'disabled', true);
+        $replacebox.sortable({disabled: true});
+      }
     }
 
     function refresh() {

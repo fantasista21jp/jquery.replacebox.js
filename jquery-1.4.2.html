@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+<title>jquery.replacebox</title>
+<meta content="Description" name="description" />
+<meta content="Keyword1,Keyword2,Keyword3" name="keywords" />
+<meta content="text/javascript" http-equiv="content-script-type" />
+<meta content="text/css" http-equiv="content-style-type" />
+<meta content="no-cache" http-equiv="cache-control" />
+<meta content="no-cache" http-equiv="pragma" />
+<meta content="auther" name="author" />
+<meta content="accont@domain.com" name="reply-to" />
+<meta content="© Copyright" name="copyright" />
+<meta content="noindex,nofollow" name="robots" />
+<link href="mailto:author@domain.com" rev="made" />
+<link href="/" rel="start" />
+<link media="screen,print" href="./css/local.css" type="text/css" rel="stylesheet" />
+
+<script src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script  src="//code.jquery.com/ui/1.8.13/jquery-ui.min.js"></script>
+
+<!-- jquery.replacebox -->
+<script src="./js/jquery.replacebox.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function(){
+    $('#jquery-replacebox-0').replacebox({
+      easing: 'easeOutCubic',
+      checkFunc: function(from, to, replacechild, action) {
+        return window.confirm('Is it OK to sort?');
+      },
+      beforeFunc: function(from, to, replacechild, action) {
+      },
+      afterFunc: function(from, to, replacechild, action) {
+      }
+    });
+    var _i = 0;
+    $('#jquery-replacebox-0-add').bind('click', function(){
+      $('<div class="jquery-replacebox"><div><a href="#" class="up">↑へ</a></div><div class="number">[ Add '+_i+' ]</div><div><a href="#" class="down">↓へ</a></div></div>').appendTo('#jquery-replacebox-0');
+      _i ++;
+      $('#jquery-replacebox-0').replacebox('refresh');
+    });
+
+    $('#jquery-replacebox-1').replacebox({
+      easing: 'easeOutCubic',
+      checkFunc: function(from, to, replacechild, action) {
+        return window.confirm('Is it OK to sort?');
+      },
+      beforeFunc: function(from, to, replacechild, action) {
+      },
+      afterFunc: function(from, to, replacechild, action) {
+      }
+    });
+    var _j = 0;
+    $('#jquery-replacebox-1-add').bind('click', function(){
+      $('<div class="jquery-replacebox"><div><a href="#" class="up">←へ</a></div><div class="number">[ Add '+_j+' ]</div><div><a href="#" class="down">→へ</a></div></div>').appendTo('#jquery-replacebox-1');
+      _j ++;
+      $('#jquery-replacebox-1').replacebox('refresh');
+    });
+
+    $('#jquery-replacebox-2').replacebox({
+      appendTo: ':not(":.nosort")',
+      easing: 'easeOutCubic',
+      checkFunc: function(from, to, replacechild, action) {
+        return window.confirm('Is it OK to sort?');
+      },
+      beforeFunc: function(from, to, replacechild, action) {
+      },
+      afterFunc: function(from, to, replacechild, action) {
+      },
+      sortable: true,
+      sortableOption: {
+        handle: '.handle'
+      },
+      sortableCheckFunc: function(event, ui) {
+        return window.confirm('Is it OK to sort?');
+      },
+      sortableBeforeFunc: function(event, ui) {
+      },
+      sortableAfterFunc: function(event, ui) {
+      }
+    });
+    var _i = 0;
+    $('#jquery-replacebox-2-add').bind('click', function(){
+      $('<div class="jquery-replacebox"><div class="handle">Handle</div><div class="contents"><div><a href="#" class="up">↑へ</a></div><div class="number">[ Add '+_i+' ]</div><div><a href="#" class="down">↓へ</a></div></div></div>').appendTo('#jquery-replacebox-2');
+      _i ++;
+      $('#jquery-replacebox-2').replacebox('refresh');
+    });
+
+    $('#jquery-replacebox-3').replacebox({
+      appendTo: ':not(":.nosort")',
+      easing: 'easeOutCubic',
+      checkFunc: function(from, to, replacechild, action) {
+        return window.confirm('Is it OK to sort?');
+      },
+      beforeFunc: function(from, to, replacechild, action) {
+      },
+      afterFunc: function(from, to, replacechild, action) {
+      },
+      sortable: true,
+      sortableOption: {
+        handle: '.handle'
+      },
+      sortableCheckFunc: function(event, ui) {
+        return window.confirm('Is it OK to sort?');
+      },
+      sortableBeforeFunc: function(event, ui) {
+      },
+      sortableAfterFunc: function(event, ui) {
+      }
+    });
+    var _i = 0;
+    $('#jquery-replacebox-3-add').bind('click', function(){
+      $('<div class="jquery-replacebox"><div class="handle">Handle</div><div class="contents"><div><a href="#" class="up">←へ</a></div><div class="number">[ Add '+_i+' ]</div><div><a href="#" class="down">→へ</a></div></div></div>').appendTo('#jquery-replacebox-3');
+      _i ++;
+      $('#jquery-replacebox-3').replacebox('refresh');
+    });
+  });
+</script>
+<!-- // jquery.replacebox -->
+</head>
+<body>
+
+
+<div id="jquery-replacebox-0">
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 0 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 1 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 2 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 3 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 4 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">↑へ</a></div>
+    <div class="number">[ 5 ]</div>
+    <div><a href="#" class="down">↓へ</a></div>
+  </div>
+</div>
+
+<p><input type="button" id="jquery-replacebox-0-add" value="Add" /></p>
+
+<hr />
+
+<div id="jquery-replacebox-1" class="clearfix">
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 0 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 1 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 2 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 3 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 4 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+  <div class="jquery-replacebox">
+    <div><a href="#" class="up">←へ</a></div>
+    <div class="number">[ 5 ]</div>
+    <div><a href="#" class="down">→へ</a></div>
+  </div>
+</div>
+
+<p><input type="button" id="jquery-replacebox-1-add" value="Add" /></p>
+
+<hr />
+
+<div id="jquery-replacebox-2">
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 0 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 1 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 2 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox nosort">
+    <div class="contents">
+      <div class="number">[ nosort ]</div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 3 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 4 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">↑へ</a></div>
+      <div class="number">[ 5 ]</div>
+      <div><a href="#" class="down">↓へ</a></div>
+    </div>
+  </div>
+</div>
+
+<p><input type="button" id="jquery-replacebox-2-add" value="Add" /></p>
+
+<hr />
+
+<div id="jquery-replacebox-3" class="clearfix">
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 0 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 1 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 2 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox nosort">
+    <div class="contents">
+      <div class="number">[ nosort ]</div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 3 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 4 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+  <div class="jquery-replacebox">
+    <div class="handle">Handle</div>
+    <div class="contents">
+      <div><a href="#" class="up">←へ</a></div>
+      <div class="number">[ 5 ]</div>
+      <div><a href="#" class="down">→へ</a></div>
+    </div>
+  </div>
+</div>
+
+<p><input type="button" id="jquery-replacebox-3-add" value="Add" /></p>
+
+</body>
+</html>
