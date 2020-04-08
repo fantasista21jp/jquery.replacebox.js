@@ -254,7 +254,9 @@
     function refresh() {
       if (typeof(configs) === 'string') configs = _getConfigs();
       if (configs === null) return;
-      $replacebox = $($replacebox.selector);
+      if (typeof $replacebox.selector !== 'undefined') {
+        $replacebox = $($replacebox.selector);
+      }
       $replaceboxes = [];
       _set();
     }

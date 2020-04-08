@@ -1,0 +1,12 @@
+{
+  "name": "jquery.replacebox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "3.x",
+    "jquery-ui-dist": "*"
+  },
+  "author": "Tom Shimada",
+  "license": "MIT"
+}
